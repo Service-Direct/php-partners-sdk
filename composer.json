@@ -1,0 +1,20 @@
+{
+    "name": "ServiceDirect/PHP-Marketplace-SDK",
+    "type": "library",
+    "description": "A PHP library to integrate with Service Direct's Marketplace API",
+    "keywords": ["PHP","SDK","API","ServiceDirect"],
+    "homepage": "https://servicedirect.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nim Levy",
+            "email": "nim@servicedirect.com",
+            "role": "Software Engineer"
+        }
+    ],
+    "require": {
+        "ext-curl": "*",
+        "ext-json": "*"
+    }
+}
+
