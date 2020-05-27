@@ -1,5 +1,5 @@
 {
-    "name": "ServiceDirect/PHP-Marketplace-SDK",
+    "name": "servicedirect/php-marketplace-sdk",
     "type": "library",
     "description": "A PHP library to integrate with Service Direct's Marketplace API",
     "keywords": ["PHP","SDK","API","ServiceDirect"],
@@ -12,7 +12,13 @@
             "role": "Software Engineer"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "ServiceDirect\\Marketplace\\": "src"
+        }
+    },
     "require": {
+        "php": ">=5.6.0",
         "ext-curl": "*",
         "ext-json": "*"
     }

@@ -1,11 +1,13 @@
 <?php
 
-namespace ServiceDirect;
+namespace ServiceDirect\Marketplace;
 
-class MarketplaceSDK
+use Exception;
+
+class MarketplaceClient
 {
     /** @var string API endpoints for production and sandbox environments */
-    const HOST = 'https://api.servicedirect.com/marketplace';
+    const HOST = 'https://api.servicedirect.com/marketplace/';
     const HOST_SANDBOX = '';
 
     const HEADER_PROVIDER = 'SD-API-Provider';
@@ -33,25 +35,33 @@ class MarketplaceSDK
     private $secret;
 
     /** @var int last call http code */
-    private $last_http_code;
+    public $last_http_code;
 
     /** @var array last call headers */
-    private $last_headers = [];
+    public $last_headers = [];
 
     /** @var string last call cURL error */
-    private $last_error;
+    public $last_error;
 
     /** @var integer last call cURL error number */
-    private $last_error_number;
+    public $last_error_number;
 
     /**
-     * Green Invoice constructor
      * @param string $key - the token key
      * @param string $secret - the token secret
      * @param bool $isSandbox - [optional] if set to true, will target the sandbox
+     * @throws Exception
      */
     public function __construct($key, $secret, $isSandbox = false)
     {
+        if ($isSandbox) {
+            throw new Exception('Currently sandbox environment is not available');
+        }
+
+        if (!$key || !$secret) {
+            throw new Exception('Missing key or secret');
+        }
+
         $this->key = $key;
         $this->secret = $secret;
 
@@ -62,11 +72,11 @@ class MarketplaceSDK
 
     /**
      * Perform a POST request to the API
-     * @param string $url the API route
-     * @param array $data the data to pass to the server
+     * @param string $url - the API route
+     * @param array $data - [optional] the data to pass to the server
      * @return array the response from the server
      */
-    public function post($url, $data)
+    public function post($url, $data = null)
     {
         return $this->http_request('POST', $url, $data);
     }
@@ -91,7 +101,7 @@ class MarketplaceSDK
      *
      * @return array the response from the server
      */
-    public function put($url, $data)
+    public function put($url, $data = null)
     {
         return $this->http_request('PUT', $url, $data);
     }
@@ -124,7 +134,6 @@ class MarketplaceSDK
             $url = "{$this->host}{$url}";
         }
 
-
         $ch = curl_init();
 
         $headers = [];
@@ -134,15 +143,13 @@ class MarketplaceSDK
 
             $headers[] = 'Content-Type: application/json';
             $headers[] = 'Content-Length: ' . strlen($data);
-            $headers[] = self::HEADER_PROVIDER . ': ' . $this->key;
-
-            $signature = hash_hmac('sha256', $this->key . $data, $this->secret);
-            $headers[] = self::HEADER_SIGNATURE . ': ' . $signature;
         }
 
-        if (!empty($headers)) {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        }
+        $signature = hash_hmac('sha256', $this->key . $data, $this->secret);
+        $headers[] = self::HEADER_PROVIDER . ': ' . $this->key;
+        $headers[] = self::HEADER_SIGNATURE . ': ' . $signature;
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         curl_setopt_array(
             $ch,
