@@ -3,7 +3,7 @@
 namespace Examples;
 
 use ServiceDirect\Marketplace\MarketplaceClient;
-use ServiceDirect\Marketplace\Industries;
+use ServiceDirect\Marketplace\ServiceCategories;
 
 require_once '../vendor/autoload.php';
 
@@ -14,7 +14,7 @@ $client = new MarketplaceClient($key, $secret, true);
 
 $requestData = [
     'zip_code' => 12345,
-    'industry_id' => Industries::AirConditioning
+    'service_category' => ServiceCategories::AirConditioning
 ];
 $response = $client->post('request', $requestData);
 

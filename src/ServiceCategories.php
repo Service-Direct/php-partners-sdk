@@ -3,12 +3,12 @@
 namespace ServiceDirect\Marketplace;
 
 /**
- * Class Industries
- * [SOME] of our available industries
- * See GET https://api.servicedirect.com/resources/industries for the most updated list of available industries
+ * Class ServiceCategories
+ * [SOME] of our available service categories
+ * See GET https://api.servicedirect.com/resources/service_categories for the most updated list of available service categories
  * @package ServiceDirect\Marketplace
  */
-abstract class Industries
+abstract class ServiceCategories
 {
     const AirConditioning = 2;
     const Electrician = 9;
