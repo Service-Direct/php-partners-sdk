@@ -1,5 +1,5 @@
 {
-    "name": "servicedirect/php-marketplace-sdk",
+    "name": "service-direct/php-marketplace-sdk",
     "type": "library",
     "description": "A PHP library to integrate with Service Direct's Marketplace API",
     "keywords": ["PHP","SDK","API","ServiceDirect","Marketplace"],
