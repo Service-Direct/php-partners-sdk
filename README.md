@@ -1,5 +1,5 @@
-# php-marketplace-sdk
-A PHP library for integration with Service Direct's Marketplace API
+# php-partners-sdk
+A PHP library for integration with Service Direct's Partners API
 
 See the `examples` directory for the usage.
 * Use the `examples\request-bid.php` file to get a bid for a service category, and a zip code

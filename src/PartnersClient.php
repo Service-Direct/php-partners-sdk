@@ -1,13 +1,13 @@
 <?php
 
-namespace ServiceDirect\Marketplace;
+namespace ServiceDirect\Partners;
 
 use Exception;
 
-class MarketplaceClient
+class PartnersClient
 {
     /** @var string API endpoints for production and sandbox environments */
-    const HOST = 'https://api.servicedirect.com/marketplace/';
+    const HOST = 'https://api.servicedirect.com/partners/';
     const HOST_SANDBOX = '';
 
     const HEADER_PROVIDER = 'SD-API-Provider';

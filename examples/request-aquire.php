@@ -2,14 +2,14 @@
 
 namespace Examples;
 
-use ServiceDirect\Marketplace\MarketplaceClient;
+use ServiceDirect\Partners\PartnersClient;
 
 require_once '../vendor/autoload.php';
 
 $key = '[YOUR_KEY_HERE]';
 $secret = '[YOUR_SECRET_HERE]';
 
-$client = new MarketplaceClient($key, $secret, true);
+$client = new PartnersClient($key, $secret, true);
 
 /** @var int $requestId - the request id received from the /request route (see /examples/request-bid.php) */
 $requestId = 0;

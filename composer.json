@@ -1,20 +1,20 @@
 {
-    "name": "service-direct/php-marketplace-sdk",
+    "name": "service-direct/php-partners-sdk",
     "type": "library",
-    "description": "A PHP library to integrate with Service Direct's Marketplace API",
-    "keywords": ["PHP","SDK","API","ServiceDirect","Marketplace"],
+    "description": "A simple PHP library to integrate with Service Direct's Partners API",
+    "keywords": ["php","sdk","api","service direct","partners"],
     "homepage": "https://www.servicedirect.com",
     "license": "MIT",
     "authors": [
         {
             "name": "Nim Levy",
             "email": "nim@servicedirect.com",
-            "role": "Software Engineer"
+            "role": "Developer"
         }
     ],
     "autoload": {
         "psr-4": {
-            "ServiceDirect\\Marketplace\\": "src"
+            "ServiceDirect\\Partners\\": "src"
         }
     },
     "require": {

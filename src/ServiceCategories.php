@@ -1,12 +1,12 @@
 <?php
 
-namespace ServiceDirect\Marketplace;
+namespace ServiceDirect\Partners;
 
 /**
  * Class ServiceCategories
  * [SOME] of our available service categories
  * See GET https://api.servicedirect.com/resources/service_categories for the most updated list of available service categories
- * @package ServiceDirect\Marketplace
+ * @package ServiceDirect\Partners
  */
 abstract class ServiceCategories
 {

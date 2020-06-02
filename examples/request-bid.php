@@ -2,15 +2,15 @@
 
 namespace Examples;
 
-use ServiceDirect\Marketplace\MarketplaceClient;
-use ServiceDirect\Marketplace\ServiceCategories;
+use ServiceDirect\Partners\PartnersClient;
+use ServiceDirect\Partners\ServiceCategories;
 
 require_once '../vendor/autoload.php';
 
 $key = '[YOUR_KEY_HERE]';
 $secret = '[YOUR_SECRET_HERE]';
 
-$client = new MarketplaceClient($key, $secret, true);
+$client = new PartnersClient($key, $secret, true);
 
 $requestData = [
     'zip_code' => 12345,
