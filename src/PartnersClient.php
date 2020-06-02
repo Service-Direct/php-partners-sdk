@@ -12,6 +12,7 @@ class PartnersClient
 
     const HEADER_PROVIDER = 'SD-API-Provider';
     const HEADER_SIGNATURE = 'SD-API-Signature';
+    const HEADER_NONCE = 'SD-API-Nonce';
 
     /** @var string the API root URL */
     private $host;
@@ -145,7 +146,9 @@ class PartnersClient
             $headers[] = 'Content-Length: ' . strlen($data);
         }
 
-        $signature = hash_hmac('sha256', $this->key . $data, $this->secret);
+        $nonce = md5(time() . $this->key);
+        $signature = hash_hmac('sha256', $this->key . $data . $nonce, $this->secret);
+        $headers[] = self::HEADER_NONCE . ': ' . $nonce;
         $headers[] = self::HEADER_PROVIDER . ': ' . $this->key;
         $headers[] = self::HEADER_SIGNATURE . ': ' . $signature;
 
