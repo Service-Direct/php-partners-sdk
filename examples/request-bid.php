@@ -7,6 +7,11 @@ use ServiceDirect\Partners\ServiceCategories;
 
 require_once '../vendor/autoload.php';
 
+/**
+ * create a request for a specific zip code and service category
+ * use the returned request_id for the next leg of the integration - request-accept
+ */
+
 $key = '[YOUR_KEY_HERE]';
 $secret = '[YOUR_SECRET_HERE]';
 
