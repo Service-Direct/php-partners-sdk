@@ -6,16 +6,12 @@ use Exception;
 
 class PartnersClient
 {
-    /** @var string API endpoints for production and sandbox environments */
-    const HOST = 'https://api.servicedirect.com/partners/';
-    const HOST_SANDBOX = '';
-
     const HEADER_PROVIDER = 'SD-API-Provider';
     const HEADER_SIGNATURE = 'SD-API-Signature';
     const HEADER_NONCE = 'SD-API-Nonce';
 
     /** @var string the API root URL */
-    private $host;
+    private $host = 'https://api.servicedirect.com/partners/';
 
     /** @var boolean verify SSL Certificate */
     private $ssl_verifypeer = false;
@@ -50,25 +46,25 @@ class PartnersClient
     /**
      * @param string $key - the token key
      * @param string $secret - the token secret
-     * @param bool $isSandbox - [optional] if set to true, will target the sandbox
      * @throws Exception
      */
-    public function __construct($key, $secret, $isSandbox = false)
+    public function __construct($key, $secret)
     {
-        if ($isSandbox) {
-            throw new Exception('Currently sandbox environment is not available');
-        }
-
         if (!$key || !$secret) {
             throw new Exception('Missing key or secret');
         }
 
         $this->key = $key;
         $this->secret = $secret;
+    }
 
-        $this->host = $isSandbox
-            ? self::HOST_SANDBOX
-            : self::HOST;
+    /**
+     * updates the host URL
+     * @param string $host - the new host URL
+     */
+    public function setHost($host)
+    {
+        $this->host = $host;
     }
 
     /**
