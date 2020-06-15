@@ -18,7 +18,7 @@ $secret = '[YOUR_SECRET_HERE]';
 $client = new PartnersClient($key, $secret);
 
 $requestData = [
-    'zip_code' => 12345,
+    'zip_code' => 11111,
     'service_category' => ServiceCategories::AirConditioning
 ];
 $response = $client->post('request', $requestData);
