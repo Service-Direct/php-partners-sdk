@@ -12,3 +12,8 @@ Things you can do with this API:
 
 See the `examples` directory for the usage.
 
+* Use the zip code `11111` to create a test request.
+
+* Use the request id `0` to accept a test request.\
+Accepting the request id 0 will return a phone number for testing routing numbers.\
+Calling this number will direct you to an automated voice mail indicating success.
