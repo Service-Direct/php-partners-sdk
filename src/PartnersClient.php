@@ -14,7 +14,7 @@ class PartnersClient
     private $host = 'https://api.servicedirect.com/partners/';
 
     /** @var boolean verify SSL Certificate */
-    private $ssl_verifypeer = false;
+//    private $ssl_verifypeer = false;
 
     /** @var integer timeout default */
     private $timeout = 30;
@@ -142,7 +142,8 @@ class PartnersClient
             $headers[] = 'Content-Length: ' . strlen($data);
         }
 
-        $nonce = md5(time() . $this->key);
+        # nonce is used as an extra measurement of security in requests without data
+        $nonce = md5(time() . 'some string for extra randomness');
         $signature = hash_hmac('sha256', $this->key . $data . $nonce, $this->secret);
         $headers[] = self::HEADER_NONCE . ': ' . $nonce;
         $headers[] = self::HEADER_PROVIDER . ': ' . $this->key;
@@ -157,7 +158,7 @@ class PartnersClient
                 CURLOPT_CONNECTTIMEOUT => $this->connecttimeout,
                 CURLOPT_TIMEOUT => $this->timeout,
                 CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_SSL_VERIFYPEER => $this->ssl_verifypeer,
+//                CURLOPT_SSL_VERIFYPEER => $this->ssl_verifypeer,
                 CURLOPT_HEADER => false,
                 CURLOPT_HEADERFUNCTION => [$this, '_getHeader'],
                 CURLOPT_URL => $url
