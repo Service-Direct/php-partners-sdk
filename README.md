@@ -2,6 +2,9 @@
 
 A PHP library for integration with Service Direct's Partners API.
 
+Install the SDK using composer:
+`composer require service-direct/php-partners-sdk`
+
 Things you can do with this API:
 
 * Use the `examples\request-bid.php` file to tell Service Direct about phone leads of a certain
