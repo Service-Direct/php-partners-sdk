@@ -48,14 +48,14 @@ a `200` HTTP status codes will be returned with information in the data paramete
 200 {"data":"..."}
 ```
 
-\* A `404` or `500` response codes can be returned when a resource is not found or an internal error occurrs. 
+\* A `404` or `500` response codes can be returned when a resource is not found or an internal error occurs. 
 
 ## Request bid
 Example of a request with the test data (Zip Code of 11111):
 ```php
 /** ServiceDirect\Partners\PartnersClient $client - the client instance */
 $requestData = [
-    'zip_code' => 11111,
+    'zip_code' => '11111',
     'service_category' => ServiceCategories::AirConditioning
 ];
 $response = $client->post('request', $requestData);
@@ -66,7 +66,7 @@ Example of a positive response:
 print_r($response);
 Array(
     [data] => Array(
-        [available_buyer] => 1
+        [available_buyer] => true
         [request_id] => 1
         [bid] => 30
         [min_duration] => 60
