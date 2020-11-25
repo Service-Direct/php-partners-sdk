@@ -91,3 +91,14 @@ Array(
     )
 )
 ```
+
+## Error Messages:
+* Missing the "zip_code" parameter
+* Missing the "service_category" parameter
+* The zip_code `{zipCode}` could not be found in our system
+  * Where `{zipCode}` is replaced with the supplied zip code
+* The industry id `{industryId}` is not a valid id.
+Please refer to your API documentation for the list of service_category values.
+You can also get the available industries in the API route:
+https://api.servicedircet.com/resources/industries
+  * Where `{industryId}` is replaced with the supplied industry id
