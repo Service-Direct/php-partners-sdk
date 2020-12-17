@@ -5,7 +5,7 @@ namespace ServiceDirect\Partners;
 /**
  * Class ServiceCategories
  * [SOME] of our available service categories
- * See GET https://api.servicedirect.com/resources/service_categories for the most updated list of available service categories
+ * See GET https://api.servicedirect.com/resources/service_categories?is_marketplace=1 for the most updated list of available service categories
  * @package ServiceDirect\Partners
  */
 abstract class ServiceCategories
