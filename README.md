@@ -28,22 +28,22 @@ $secret = '[YOUR_SECRET_HERE]';
 
 $client = new PartnersClient($key, $secret);
 ```
-Replace the `[YOUR_KEY_HERE]` and `[YOUR_SECRET_HERE]` strings with your token key secret provided by Service Direct
+Replace the `[YOUR_KEY_HERE]` and `[YOUR_SECRET_HERE]` strings with your token key secret provided by Service Direct.
 
-#### Responses
-Responses can come in several formats
+### Responses
+Responses can come in several formats.
 
-Bad requests will result in a response of `400` with a message explaining the error: 
+Bad requests will result in a response of `400` with a message explaining the error, and a numeric error_code:
 ```http request
-400 {"message":"..."}
+400 {"message":"...","error_code":"..."}
 ```
 When a buyer is not found for the `zip code <-> service category` combination,
-a `404` HTTP status codes will be returned with information in the data parameter
+a `404` HTTP status codes will be returned with information in the data parameter.
 ```http request
 404 {"data":"..."}
 ```
 When a buyer is found for the `zip code <-> service category` combination,
-a `200` HTTP status codes will be returned with information in the data parameter
+a `200` HTTP status codes will be returned with information in the data parameter.
 ```http request
 200 {"data":"..."}
 ```
@@ -92,13 +92,17 @@ Array(
 )
 ```
 
-## Error Messages:
+## Error Messages and Codes:
 * Missing the "zip_code" parameter
+  * Error code: `1001`
 * Missing the "service_category" parameter
+  * Error code: `1002`
 * The zip_code `{zipCode}` could not be found in our system
   * Where `{zipCode}` is replaced with the supplied zip code
-* The industry id `{industryId}` is not a valid id.
+  * Error code: `1003`
+* The service category id `{serviceCategoryId}` is not a valid id or is currently not available.
 Please refer to your API documentation for the list of service_category values.
-You can also get the available industries in the API route:
-https://api.servicedircet.com/resources/industries
-  * Where `{industryId}` is replaced with the supplied industry id
+You can also get the available service categories in the API route:
+  https://api.servicedirect.com/resources/service_categories?is_marketplace=1
+  * Where `{serviceCategoryId}` is replaced with the supplied service category id
+  * Error code: `1004`
