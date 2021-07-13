@@ -21,6 +21,7 @@ Additionally, Publisher Partners can use our other supporting endpoints to deter
 * Do you have current coverage in this zip code? What is the maximum CPL available in this zip code?
   * Send an API request to `/cpl/industry/{service-category_id}` 
 
+##
 ## PHP SDK Examples in this Repository:
 This repository contains a simple PHP example library for authenticating, connecting and querying each of our main API 
 endpoints. If you use PHP in your environments, it is encouraged to clone this library and augment it as needed. If you 
@@ -77,6 +78,7 @@ a `200` HTTP status codes will be returned with information in the data paramete
 
 __Note:__ A `404` or `500` response code can be returned when a resource is not found, or an internal error occurs.
 
+##
 ## Step 1: Submit a Zip Code & Service Category to Request a Current Bid 
 The first step in sending a lead to the Service Direct Marketplace is to check the availability of a Buyer for a 
 specific Zip Code and Service Category. This is accomplished via a request to the API: 
@@ -174,6 +176,7 @@ In order to test your application, use the zip code `11111` to create a test req
 }
 ```
 
+##
 ## Step 2: Accept the Bid, Receive a Tracking Phone Number
 After receiving a Bid in Step 1, you must make a second request to Accept the Bid and receive a Tracking Phone Number to
 route the lead to. 
@@ -236,6 +239,7 @@ you can route test calls to like this:
 ```
 * The number answers with a automated voice mail indicating success.
 
+##
 ## Additional API Resources for understanding Service Categories
 
 ### See all of our Service Categories
