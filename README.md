@@ -16,7 +16,7 @@ Then, if our client's bid is satisfactory, the Partner can accept the bid and re
 route the caller to the winning client  `/partners/request/{request_id}/accept`.
 
 Additionally, Publisher Partners can use our other supporting endpoints to determine their best integration options:
-* What Service Categories to you cover?
+* What Service Categories do you cover?
   * Send an API request to `/resources/service_categories`
 * Do you have current coverage in this zip code? What is the maximum CPL available in this zip code?
   * Send an API request to `/cpl/industry/{service-category_id}` 
