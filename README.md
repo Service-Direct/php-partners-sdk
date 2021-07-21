@@ -2,24 +2,24 @@
 
 ## Overview:
 This README explains the usage of the Service Direct Marketplace API resources.
-* The `/partners/` routes are for Requesting a Bid (Step 1) and Accepting a Bid (Step 2) for a Tracking Number:
-  * `/partners/request`
-  * `/partners/request/{request_id}/accept`
-* The other routes are for Service Category mapping and finding the highest Cost Per Lead per Zip Code:
-  * `/resources/service_categories`
-  * `/cpl/industry/{service-category_id}`
+* The authenticated `/partners/` routes are for Requesting a Bid (Step 1) and Accepting a Bid (Step 2) for a Tracking Number:
+  * `POST /partners/request`
+  * `POST /partners/request/{request_id}/accept`
+* The open routes are for Service Category mapping and finding the highest Cost Per Lead per Zip Code:
+  * `GET /resources/service_categories`
+  * `GET /cpl/industry/{service-category_id}`
 
 Using this API, a Publisher Partner who generates phone calls and wants to sell those leads to Service Direct can 
-request a bid from Service Direct’s clients by submitting a request with a service category and zip code `/partners/request`. 
+request a bid from Service Direct’s clients by submitting a request with a service category and zip code to `POST /partners/request`. 
 
 Then, if our client's bid is satisfactory, the Partner can accept the bid and receive a forwarding tracking phone number to 
-route the caller to the winning client  `/partners/request/{request_id}/accept`.
+route the caller to the winning client by sending a request to `POST /partners/request/{request_id}/accept`.
 
 Additionally, Publisher Partners can use our other supporting endpoints to determine their best integration options:
-* What Service Categories do you cover?
-  * Send an API request to `/resources/service_categories`
+* What Service Categories do we cover?
+  * Send an API request to `GET /resources/service_categories`
 * Do you have current coverage in this zip code? What is the maximum CPL available in this zip code?
-  * Send an API request to `/cpl/industry/{service-category_id}` 
+  * Send an API request to `GET /cpl/industry/{service-category_id}` 
 
 ##
 ## PHP SDK Examples in this Repository:
@@ -33,7 +33,7 @@ __Step 1 is Requesting a Bid__ - you submit a Zip Code and Service Category, API
   * Use the zip code `11111` to create a test request.
   * Or use an actual zip code `90210` to see a real response
 
-__Step 2 is Accepting the Bid__ - you submit a Request ID, API returns a Tracking Phone Number.
+__Step 2 is Accepting the Bid__ - you submit a Request ID, the API returns a Tracking Phone Number.
 * `/examples/request-accept.php`
   * Use the request id `0` to accept a test request and receive a phone number for testing routing numbers.
   * Calling the test number will direct you to an automated voice mail indicating success.
@@ -46,15 +46,17 @@ __Step 2 is Accepting the Bid__ - you submit a Request ID, API returns a Trackin
 Replace the placeholder values with your private Key and Secret in these files:  `/examples/request-bid.php` and 
 `/examples/request-accept.php`
 ```php
+use ServiceDirect\Partners\PartnersClient;
+
 $key = '[YOUR_KEY_HERE]';
 $secret = '[YOUR_SECRET_HERE]';
 
 $client = new PartnersClient($key, $secret);
 ```
-* Contact Service Direct in order to obtain your Private Keys. 
+* Contact [Service Direct](https://servicedirect.com) in order to obtain your Private Keys. 
 * These strings must be kept hidden and treated like any other private credentials or passwords.
 * You use your Key and Secret values to calculate the *SD-API-Signature header*, which is required in the `/request` and
-  `/accept`
+  `/accept` routes
 
 ### Possible API Responses
 API Responses can come in several formats.
@@ -98,7 +100,7 @@ Submit a `POST` request containing authentication Headers and the appropriate da
   * __zip_code__ – (string) your lead's Zip Code
   * __service_category__ – (integer) your lead's Service Category
   
-Here is an example request for a bid in zip code 12345 for service category Air Conditioning (2) using cURL:
+Here is an example request for a bid in zip code 01234 for service category Air Conditioning (2) using cURL:
 ```shell
 curl \
   -X POST \
@@ -106,7 +108,7 @@ curl \
   -H "SD-API-Nonce: [STRING]" \
   -H "SD-API-Provider: [YOUR_KEY]" \
   -H "SD-API-Signature: [CALCULATE SIGNATURE]" \
-  -d "{\"zip_code\":\"12345\",\"service_category\":2}"
+  -d "{\"zip_code\":\"01234\",\"service_category\":2}"
 ```
 
 ### Response to the Request for a Bid:
@@ -130,6 +132,8 @@ An example response (as JSON):
 ### Our PHP Examples for Requesting a Bid
 This is how our [PHP SDK sends a Test Data example request (11111 = test zip code)](https://github.com/Service-Direct/php-partners-sdk/blob/9908cd2bd1398c1144ce82894146ff6eeeb4718c/examples/request-bid.php#L20):
 ```php
+use ServiceDirect\Partners\ServiceCategories;
+
 /** ServiceDirect\Partners\PartnersClient $client - the client instance */
 $requestData = [
     'zip_code' => '11111',
@@ -140,8 +144,11 @@ $response = $client->post('request', $requestData);
 
 This is an example response confirming an Available Buyer for that Zip Code and Service Category:
 ```php
-## Buyer available, data contains the Buyer's Bid
+# Buyer available, data contains the Buyer's Bid
 print_r($response);
+```
+Will print:
+```
 Array(
     [data] => Array(
         [available_buyer] => true
@@ -155,8 +162,11 @@ Array(
 __Note:__ If we do not have a matching buyer, then we will respond with a `404` coded response with data 
 explaining we do not have a buyer:
 ```php
-## Buyer not available
+# Buyer not available
 print_r($response);
+```
+Will print:
+```
 Array(
     [data] => Array(
         [available_buyer] => false
@@ -185,7 +195,7 @@ The Tracking Number directly rings to our Client, the winning Bidder. Our system
 rotation, each number is reserved for 60 seconds giving you time to connect to the winning Bidder. 
 
 ### Accept a Bid - request format
-Submit a `POST` request with Authentication Headers, using the `request_id` in the URL to
+Submit a `POST` request with authentication headers, using the `request_id` in the URL to
 `https://api.servicedirect.com/partners/request/{request_id}/accept`
 * Headers:
   * __SD-API-Nonce__
@@ -199,7 +209,7 @@ curl \
   "https://api.servicedirect.com/partners/request/[REQUEST_ID]/accept" \
   -H "SD-API-Nonce: [STRING]" \
   -H "SD-API-Provider: [YOUR_KEY]" \
-  -H "SD-API-Signature: [CALCULATE SIGNATURE]" \
+  -H "SD-API-Signature: [CALCULATED SIGNATURE]" \
 ```
 ### Response to Accepting a Bid request:
 The response will contain a string `phone_number`, the Tracking Phone Number reserved for you to connect directly 
@@ -208,7 +218,9 @@ to our Client with the highest bid.
 Example response (as JSON)
 ```shell
 {
-  "phone_number": "5555555555"
+  "data": {
+    "phone_number": "5555555555"
+  }
 }
 ```
 #### Our PHP Examples for Accepting a Bid
@@ -222,6 +234,9 @@ $response = $client->post("request/{$requestId}/accept");
 Example PHP response with Tracking Phone Number:
 ```php
 print_r($response);
+```
+Will print:
+```
 Array(
     [data] => Array(
         [phone_number] => "5555555555"
@@ -248,27 +263,30 @@ you can route test calls to like this:
 * Use this resource to map your Service Categories or Industries to ours
 ```shell
 {
-  "data":
-    {"service_categories":
-      [
-        {
-          "id":"177",
-          "industry_master_id":"2",
-          "name":"Accident Attorney"
-        },
-        {
-          "id":"35",
-          "industry_master_id":"4",
-          "name":"Accountant"
-        },
-        {
-          "id":"2",
-          "industry_master_id":"1",
-          "name":"Air Conditioning"
-        }
-        ...
-      ]
-    }
+  "data": {
+    "service_categories": [
+      {
+        "id":"177",
+        "industry_master_id":"2",
+        "name":"Accident Attorney"
+      },
+      {
+        "id":"35",
+        "industry_master_id":"4",
+        "name":"Accountant"
+      },
+      {
+        "id":"2",
+        "industry_master_id":"1",
+        "name":"Air Conditioning"
+      }
+      ...
+    ],
+    "master_service_categories": [
+      /* not used for this SDK */
+      ...
+    ]
+  }
 }
 ```
 
@@ -315,3 +333,5 @@ This API endpoint returns an array of `zip_codes` with each zip code's `max_cpl`
 * Error code: `1004`
   * The provided "service_category_id" is not a valid id or is currently not available. You can see available service 
     categories in the API route: https://api.servicedirect.com/resources/service_categories
+* Error code: `1005`
+  * No buyer found for the provided zip code and service category
