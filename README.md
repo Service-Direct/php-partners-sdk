@@ -258,7 +258,7 @@ you can route test calls to like this:
 ## Additional API Resources for understanding Service Categories
 
 ### See all of our Service Categories
-* <a href="https://api.servicedirect.com/resources/service_categories" rel="nofollow noreferrer" target="_blank">https://api.servicedirect.com/resources/service_categories</a>
+* https://api.servicedirect.com/resources/service_categories
 * It returns an array of Service Categories with the ID needed in your requests
 * Use this resource to map your Service Categories or Industries to ours
 ```shell
