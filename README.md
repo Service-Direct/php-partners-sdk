@@ -120,7 +120,7 @@ If we have a buyer matching the specified Zip Code and Service Category, then yo
 * A number `min_duration` *(If Applicable)* – containing the minimum duration in seconds for this call to be payable
 
 An example response (as JSON):
-```shell
+```json
 {
   "available_buyer": true,
   "request_id": 123,
@@ -178,7 +178,7 @@ Array(
 ### Testing data for Step 1
 In order to test your application, use the zip code `11111` to create a test request. Our system will respond with 
 `available_buyer = true` and `request_id = 0` like this:
-```shell
+```json
 {
   "available_buyer": true,
   "request_id": 0,
@@ -216,7 +216,7 @@ The response will contain a string `phone_number`, the Tracking Phone Number res
 to our Client with the highest bid.
 
 Example response (as JSON)
-```shell
+```json
 {
   "data": {
     "phone_number": "5555555555"
@@ -247,7 +247,7 @@ Array(
 ### Testing data for Step 2
 In order to test your application, you can use `request_id = 0`, our system will respond with a Test Phone Number that 
 you can route test calls to like this:
-```shell
+```json
 {
   "phone_number": "5129566629"
 }
@@ -261,7 +261,7 @@ you can route test calls to like this:
 * https://api.servicedirect.com/resources/service_categories
 * It returns an array of Service Categories with the ID needed in your requests
 * Use this resource to map your Service Categories or Industries to ours
-```shell
+```json
 {
   "data": {
     "service_categories": [
@@ -279,7 +279,7 @@ you can route test calls to like this:
         "id":"2",
         "industry_master_id":"1",
         "name":"Air Conditioning"
-      }
+      },
       ...
     ],
     "master_service_categories": [
@@ -294,33 +294,26 @@ you can route test calls to like this:
 This API endpoint returns an array of `zip_codes` with each zip code's `max_cpl`
 * `https://api.servicedirect.com/cpl/{service-category_id}`
 * Current Air Conditioning data: https://api.servicedirect.com/cpl/industry/2
-```shell
+```json
 {
-  "data":
-    {
-      "industry_name": "Air Conditioning",
-      "zip_codes":
-        [
-          {
-            "0":
-              {
-                "zip_code":"32957",
-                "max_cpl":"65.00"
-              },
-            "1":
-              {
-                "zip_code":"32958",
-                "max_cpl":"65.00"
-              },
-            "2":
-              {
-                "zip_code":"32962",
-                "max_cpl":"65.00"
-              },
-            ...
-          }
-        ]
-    }
+  "data": {
+    "industry_name": "Air Conditioning",
+    "zip_codes": [
+      {
+        "zip_code":"32957",
+        "max_cpl":"65.00"
+      },
+      {
+        "zip_code":"32958",
+        "max_cpl":"65.00"
+      },
+      {
+        "zip_code":"32962",
+        "max_cpl":"65.00"
+      },
+      ...
+    ]
+  }
 }
 ```
 ## Possible Error Messages and Codes:
