@@ -258,7 +258,7 @@ you can route test calls to like this:
 ## Additional API Resources for understanding Service Categories
 
 ### See all of our Service Categories
-* https://api.servicedirect.com/resources/service_categories
+* https://api.servicedirect.com/resources/service_categories?is_marketplace=1
 * It returns an array of Service Categories with the ID needed in your requests
 * Use this resource to map your Service Categories or Industries to ours
 ```json
@@ -325,6 +325,6 @@ This API endpoint returns an array of `zip_codes` with each zip code's `max_cpl`
   * The provided "zip_code" could not be found in our system
 * Error code: `1004`
   * The provided "service_category_id" is not a valid id or is currently not available. You can see available service 
-    categories in the API route: https://api.servicedirect.com/resources/service_categories
+    categories in the API route: https://api.servicedirect.com/resources/service_categories?is_marketplace=1
 * Error code: `1005`
   * No buyer found for the provided zip code and service category
