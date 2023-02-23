@@ -6,7 +6,7 @@ This README explains the usage of the Service Direct Marketplace API resources.
   * `POST /partners/request`
   * `POST /partners/request/{request_id}/accept`
 * The open routes are for Service Category mapping and finding the highest Cost Per Lead per Zip Code:
-  * `GET /resources/service_categories`
+  * `GET /resources/service_categories?is_marketplace=1`
   * `GET /cpl/industry/{service-category_id}`
 
 Using this API, a Publisher Partner who generates phone calls and wants to sell those leads to Service Direct can 
@@ -17,7 +17,7 @@ route the caller to the winning client by sending a request to `POST /partners/r
 
 Additionally, Publisher Partners can use our other supporting endpoints to determine their best integration options:
 * What Service Categories do we cover?
-  * Send an API request to `GET /resources/service_categories`
+  * Send an API request to `GET /resources/service_categories?is_marketplace=1`
 * Do you have current coverage in this zip code? What is the maximum CPL available in this zip code?
   * Send an API request to `GET /cpl/industry/{service-category_id}` 
 
