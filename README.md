@@ -98,7 +98,7 @@ Submit a `POST` request containing authentication Headers and the appropriate da
     * [You can see an example of this Signature creation here in our PHP SDK documentation.](https://github.com/Service-Direct/php-partners-sdk/blob/master/src/PartnersClient.php#L147)
 * Data:
   * __zip_code__ – (string) your lead's Zip Code
-  * __service_category__ – (integer) your lead's Service Category
+  * __service_category__ – (integer) your lead's Service Category ID ([see list of our Service Category IDs here](https://api.servicedirect.com/resources/service_categories?is_marketplace=1))
   
 Here is an example request for a bid in zip code 01234 for service category Air Conditioning (2) using cURL:
 ```shell
