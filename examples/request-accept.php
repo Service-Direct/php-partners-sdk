@@ -20,6 +20,7 @@ $client = new PartnersClient($key, $secret);
 $requestId = 0;
 $response = $client->post("request/{$requestId}/accept");
 
+echo "Status code: $client->last_http_code\n";
 print_r($response);
 
 /*

@@ -8,7 +8,7 @@ use ServiceDirect\Partners\ServiceCategories;
 require_once '../vendor/autoload.php';
 
 /**
- * create a request for a specific zip code and service category
+ * create a phone request for a specific zip code and service category
  * use the returned request_id for the next leg of the integration - request-accept
  */
 
@@ -17,12 +17,16 @@ $secret = '[YOUR_SECRET_HERE]';
 
 $client = new PartnersClient($key, $secret);
 
+// optional fields are indicated by /*?*/
 $requestData = [
-    'zip_code' => 11111,
-    'service_category' => ServiceCategories::AirConditioning
+    /*?*/'test_mode' => true,
+    'zip_code' => '11111',
+    'service_category' => ServiceCategories::AirConditioning,
+    /*?*/'source' => '{internal_identifier}',
 ];
 $response = $client->post('request', $requestData);
 
+echo "Status code: $client->last_http_code\n";
 print_r($response);
 
 /*
