@@ -30,12 +30,11 @@ use a different scripting language, examine the logic in this library so that yo
 ### Start in the `examples` directory to uncover how the library works.
 __Step 1 is Requesting a Bid__ - you submit a Zip Code and Service Category, API returns if there is an available lead Buyer.
 * `/examples/request-bid.php`
-  * Use the zip code `11111` to create a test request.
-  * Or use an actual zip code `90210` to see a real response
+  * Use the `test_mode=true` variable to create a test request.
 
 __Step 2 is Accepting the Bid__ - you submit a Request ID, the API returns a Tracking Phone Number.
 * `/examples/request-accept.php`
-  * Use the request id `0` to accept a test request and receive a phone number for testing routing numbers.
+  * Use the `test_mode=true` variable to accept a test request and receive a phone number for testing routing numbers.
   * Calling the test number will direct you to an automated voice mail indicating success.
 
 ### Install this library using Composer:
@@ -99,6 +98,8 @@ Submit a `POST` request containing authentication Headers and the appropriate da
 * Data:
   * __zip_code__ – (string) your lead's Zip Code
   * __service_category__ – (integer) your lead's Service Category ID ([see list of our Service Category IDs here](https://api.servicedirect.com/resources/service_categories?is_marketplace=1))
+  * __source__ – (string) your internal identifier [optional]
+  * __test_mode__ – (boolean) set true for test calls [optional]
   
 Here is an example request for a bid in zip code 01234 for service category Air Conditioning (2) using cURL:
 ```shell
@@ -108,7 +109,7 @@ curl \
   -H "SD-API-Nonce: [STRING]" \
   -H "SD-API-Provider: [YOUR_KEY]" \
   -H "SD-API-Signature: [CALCULATE SIGNATURE]" \
-  -d "{\"zip_code\":\"01234\",\"service_category\":2}"
+  -d "{\"zip_code\":\"01234\",\"service_category\":2,\"source\":\"SOME_STRING_VALUE\"}"
 ```
 
 ### Response to the Request for a Bid:
@@ -124,20 +125,22 @@ An example response (as JSON):
 {
   "available_buyer": true,
   "request_id": 123,
-  "bid": 25
+  "bid": 25,
   "min_duration": 60
 }
 ```
 
 ### Our PHP Examples for Requesting a Bid
-This is how our [PHP SDK sends a Test Data example request (11111 = test zip code)](https://github.com/Service-Direct/php-partners-sdk/blob/9908cd2bd1398c1144ce82894146ff6eeeb4718c/examples/request-bid.php#L20):
+This is how our [PHP SDK sends a Test Data example request (test_mode=true)](https://github.com/Service-Direct/php-partners-sdk/blob/9908cd2bd1398c1144ce82894146ff6eeeb4718c/examples/request-bid.php#L20):
 ```php
 use ServiceDirect\Partners\ServiceCategories;
 
 /** ServiceDirect\Partners\PartnersClient $client - the client instance */
 $requestData = [
+    'test_mode' => true,
     'zip_code' => '11111',
-    'service_category' => ServiceCategories::AirConditioning
+    'service_category' => ServiceCategories::AirConditioning,
+    'source' => 'SOME_STRING_VALUE'
 ];
 $response = $client->post('request', $requestData);
 ```
@@ -176,8 +179,8 @@ Array(
 ```
 
 ### Testing data for Step 1
-In order to test your application, use the zip code `11111` to create a test request. Our system will respond with 
-`available_buyer = true` and `request_id = 0` like this:
+In order to test your application, use the `test_mode=true` variable to create a test request. Our system will respond
+with `available_buyer = true`, `request_id = 0`, and some `cpl` float value like this:
 ```json
 {
   "available_buyer": true,
@@ -245,8 +248,8 @@ Array(
 ```
 
 ### Testing data for Step 2
-In order to test your application, you can use `request_id = 0`, our system will respond with a Test Phone Number that 
-you can route test calls to like this:
+In order to test your application, you can use the `test_mode=true` variable, our system will respond with a Test Phone
+Number that you can route test calls to like this:
 ```json
 {
   "phone_number": "5129566629"
