@@ -18,8 +18,8 @@ $secret = '[YOUR_SECRET_HERE]';
 $client = new PartnersClient($key, $secret);
 
 // optional fields are indicated by /*?*/
+$leadToken = 'd1f986fa781e6496d0fdc63a36c3a14e';
 $requestData = [
-    'lead_token' => 'd1f986fa781e6496d0fdc63a36c3a14e',
     'first_name' => 'John',
     'last_name' => 'Doe',
     'email' => 'test@example.com',
@@ -42,7 +42,7 @@ $requestData = [
     /*?*/'details' => '[{"q":"What?","a":"Yes"}]',
     /*?*/'test_mode' => false,
 ];
-$response = $client->post('forms/post', $requestData);
+$response = $client->post("forms/$leadToken/post", $requestData);
 
 echo "Status code: $client->last_http_code\n";
 print_r($response);

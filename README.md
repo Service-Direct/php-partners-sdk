@@ -2,18 +2,30 @@
 
 ## Overview:
 This README explains the usage of the Service Direct Marketplace API resources.
-* The authenticated `/partners/` routes are for Requesting a Bid (Step 1) and Accepting a Bid (Step 2) for a Tracking Number:
+* The authenticated `/partners/` routes are for Requesting a Bid (Step 1) and Accepting a Bid (Step 2)
   * `POST /partners/request`
   * `POST /partners/request/{request_id}/accept`
+  * `POST /partners/forms/ping`
+  * `POST /partners/forms/{lead_token}/post`
 * The open routes are for Service Category mapping and finding the highest Cost Per Lead per Zip Code:
   * `GET /resources/service_categories?is_marketplace=1`
   * `GET /cpl/industry/{service-category_id}`
 
+## Phones
 Using this API, a Publisher Partner who generates phone calls and wants to sell those leads to Service Direct can 
-request a bid from Service Direct’s clients by submitting a request with a service category and zip code to `POST /partners/request`. 
+request a bid from Service Direct’s clients by submitting a request with a service category and zip code to
+`POST /partners/request`. 
 
-Then, if our client's bid is satisfactory, the Partner can accept the bid and receive a forwarding tracking phone number to 
-route the caller to the winning client by sending a request to `POST /partners/request/{request_id}/accept`.
+Then, if our client's bid is satisfactory, the Partner can accept the bid and receive a forwarding tracking phone number
+to route the caller to the winning client by sending a request to `POST /partners/request/{request_id}/accept`.
+
+## Forms
+Using this API, a Publisher Partner who generates form leads and wants to sell those leads to Service Direct can 
+request a bid from Service Direct's clients by submitting a request with a service category, zip code, and a
+TCPA consent to `POST /partners/forms/ping`.
+
+Then, if our client's bid is satisfactory, the Partner can accept the bid and receive a forwarding tracking phone number
+to route the caller to the winning client by sending a request to `POST /partners/request/{request_id}/accept`.
 
 Additionally, Publisher Partners can use our other supporting endpoints to determine their best integration options:
 * What Service Categories do we cover?
