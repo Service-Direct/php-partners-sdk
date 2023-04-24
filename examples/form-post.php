@@ -13,13 +13,13 @@ require_once '../vendor/autoload.php';
  */
 
 $key = '[YOUR_KEY_HERE]';
-$secret = '[YOUR_SECRET_HERE]';
 
-$client = new PartnersClient($key, $secret);
+$client = new PartnersClient($key);
 
 // optional fields are indicated by /*?*/
 $leadToken = 'd1f986fa781e6496d0fdc63a36c3a14e';
 $requestData = [
+    /*?*/'test_mode' => true,
     'first_name' => 'John',
     'last_name' => 'Doe',
     'email' => 'test@example.com',
@@ -40,7 +40,6 @@ $requestData = [
     /*?*/'time_frame' => '2 weeks',
     /*?*/'property_type' => 'residential',
     /*?*/'details' => '[{"q":"What?","a":"Yes"}]',
-    /*?*/'test_mode' => false,
 ];
 $response = $client->post("forms/$leadToken/post", $requestData);
 

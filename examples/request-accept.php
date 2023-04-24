@@ -12,13 +12,16 @@ require_once '../vendor/autoload.php';
  */
 
 $key = '[YOUR_KEY_HERE]';
-$secret = '[YOUR_SECRET_HERE]';
 
-$client = new PartnersClient($key, $secret);
+$client = new PartnersClient($key);
 
 /** @var int $requestId - the request id received from the /request route (see /examples/request-bid.php) */
+// optional fields are indicated by /*?*/
+$requestData = [
+    /*?*/'test_mode' => true,
+];
 $requestId = 0;
-$response = $client->post("request/{$requestId}/accept");
+$response = $client->post("request/{$requestId}/accept", $requestData);
 
 echo "Status code: $client->last_http_code\n";
 print_r($response);

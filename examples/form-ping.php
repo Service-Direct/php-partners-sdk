@@ -15,18 +15,17 @@ require_once '../vendor/autoload.php';
  */
 
 $key = '[YOUR_KEY_HERE]';
-$secret = '[YOUR_SECRET_HERE]';
 
-$client = new PartnersClient($key, $secret);
+$client = new PartnersClient($key);
 
 // optional fields are indicated by /*?*/
 $requestData = [
+    /*?*/'test_mode' => true,
     'zip_code' => '78602',
     'service_category' => ServiceCategories::Plumbing,
     /*?*/'subcategory' => 594, /* plumbing subcategory */
     'tcpa_consent' => true,
     /*?*/'source' => '',
-    /*?*/'test_mode' => false,
     /*?*/'project_description' => 'Need a plumber',
     /*?*/'homeowner' => 'yes',
     /*?*/'time_frame' => '2 weeks',

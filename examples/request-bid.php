@@ -13,9 +13,8 @@ require_once '../vendor/autoload.php';
  */
 
 $key = '[YOUR_KEY_HERE]';
-$secret = '[YOUR_SECRET_HERE]';
 
-$client = new PartnersClient($key, $secret);
+$client = new PartnersClient($key);
 
 // optional fields are indicated by /*?*/
 $requestData = [
