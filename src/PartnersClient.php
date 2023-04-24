@@ -7,8 +7,6 @@ use Exception;
 class PartnersClient
 {
     const HEADER_PROVIDER = 'SD-API-Provider';
-    const HEADER_SIGNATURE = 'SD-API-Signature';
-    const HEADER_NONCE = 'SD-API-Nonce';
 
     /** @var string the API root URL */
     private $host = 'https://api.servicedirect.com/partners/';
@@ -23,13 +21,10 @@ class PartnersClient
     private $connecttimeout = 30;
 
     /** @var string the SDK user agent */
-    private $useragent = 'servicedirect-sdk-php-v0.1';
+    private $useragent = 'servicedirect-sdk-php-v0.2';
 
     /** @var string the app key */
     private $key;
-
-    /** @var string the app secret */
-    private $secret;
 
     /** @var int last call http code */
     public $last_http_code;
@@ -45,17 +40,15 @@ class PartnersClient
 
     /**
      * @param string $key - the token key
-     * @param string $secret - the token secret
      * @throws Exception
      */
-    public function __construct($key, $secret)
+    public function __construct($key)
     {
-        if (!$key || !$secret) {
-            throw new Exception('Missing key or secret');
+        if (!$key) {
+            throw new Exception('Missing key');
         }
 
         $this->key = $key;
-        $this->secret = $secret;
     }
 
     /**
@@ -142,12 +135,7 @@ class PartnersClient
             $headers[] = 'Content-Length: ' . strlen($data);
         }
 
-        # nonce is used as an extra measurement of security in requests without data
-        $nonce = md5(time() . 'some string for extra randomness');
-        $signature = hash_hmac('sha256', $this->key . $data . $nonce, $this->secret);
-        $headers[] = self::HEADER_NONCE . ': ' . $nonce;
         $headers[] = self::HEADER_PROVIDER . ': ' . $this->key;
-        $headers[] = self::HEADER_SIGNATURE . ': ' . $signature;
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
