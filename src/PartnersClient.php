@@ -40,9 +40,10 @@ class PartnersClient
 
     /**
      * @param string $key - the token key
+     * @param mixed $placeholder - [deprecated] placeholder for legacy support
      * @throws Exception
      */
-    public function __construct($key)
+    public function __construct($key, $placeholder)
     {
         if (!$key) {
             throw new Exception('Missing key');
