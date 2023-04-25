@@ -4,8 +4,8 @@
 The purpose of this SDK it to ease the integration process for our affiliates who use PHP.
 
 To understand our API, see our documentations:
-* [Marketplace Phones API](https://docs.google.com/document/d/1hp6HN8P0ZHgN6YAjACM6joyUwhNsgZsQqAHlcNCRnqY/edit#)
-* [Marketplace Forms API](https://docs.google.com/document/d/1YmEs0q46fCZ7Q0nd62PL275-KTqS5D0ug2OtWwkaP-c/edit#)
+* [Marketplace Phones API](https://docs.google.com/document/d/e/2PACX-1vSqTEv-aynxXNOSqj9xD4nwMrC9gfl-kE9J0UFWFNtrJcXIE7NE0l3tUH4Zro3cTHwXHmoe_JaHCmTW/pub)
+* [Marketplace Forms API](https://docs.google.com/document/u/1/d/e/2PACX-1vQ35nE839QVD2EkkVnhRNhu_hf8NXRJL3gUzn4jdMoAclIX-faGk-nGHJ0_Zchdd0lUMwdJyXk3RLD0/pub)
 
 ### Install this library using Composer:
 `composer require service-direct/php-partners-sdk`
