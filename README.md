@@ -16,7 +16,9 @@ The API responds with different HTTP status codes to better rely the result of a
 These response codes include 200, 400, 404, etc.
 If your system is senstive to different response codes, the `suppress_response_codes` variable
 can be added to every response URL (e.g. `/partners/request?suppress_response_codes`) to always
-return a **200** HTTP status code
+return a **200** HTTP status code.
+
+The intended HTTP status code will be returned in the **x-original-status-code** header.
 
 ### Endpoints
 The SDK integrates with the following API endpoints:
