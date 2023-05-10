@@ -35,7 +35,7 @@ As well as the following dynamically changing open endpoints to get Service Dire
 * Service Category mapping; the response includes the service_category_id that 
   * Phones: https://api.servicedirect.com/resources/service_categories?is_marketplace=1
   * Forms: https://api.servicedirect.com/resources/service_categories?is_marketplace=1&is_mp_forms=1
-* Finding the highest Cost Per Lead per Zip Code:
+* Find the highest possible Payout per Zip Code:
   * `https://api.servicedirect.com/cpl/industry/{service_category_id}`
     * e.g. https://api.servicedirect.com/cpl/industry/2
   * Where **{service_category_id}** is replaced with an id from the mapping endpoints
