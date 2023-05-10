@@ -16,7 +16,7 @@ abstract class ServiceCategories
     const Handyman = 13;
     const Heating = 14;
     const MoldRemoval = 18;
-    const PersonalInjuryAttorney = 109;
+    const PersonalInjuryLawyer = 109;
     const PestControl = 42;
     const Plumbing = 20;
     const RodentRemoval = 194;
