@@ -11,9 +11,6 @@ class PartnersClient
     /** @var string the API root URL */
     private $host = 'https://api.servicedirect.com/partners/';
 
-    /** @var boolean verify SSL Certificate */
-//    private $ssl_verifypeer = false;
-
     /** @var integer timeout default */
     private $timeout = 30;
 
@@ -133,16 +130,14 @@ class PartnersClient
 
         $headers[] = self::HEADER_PROVIDER . ': ' . $this->key;
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
         curl_setopt_array(
             $ch,
             [
+                CURLOPT_HTTPHEADER => $headers,
                 CURLOPT_USERAGENT => $this->useragent,
                 CURLOPT_CONNECTTIMEOUT => $this->connecttimeout,
                 CURLOPT_TIMEOUT => $this->timeout,
                 CURLOPT_RETURNTRANSFER => true,
-//                CURLOPT_SSL_VERIFYPEER => $this->ssl_verifypeer,
                 CURLOPT_HEADER => false,
                 CURLOPT_HEADERFUNCTION => [$this, '_getHeader'],
                 CURLOPT_URL => $url
