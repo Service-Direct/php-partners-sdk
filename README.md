@@ -26,6 +26,7 @@ The SDK integrates with the following API endpoints:
 * Phones
   * `POST /partners/request` - request a phone bid
   * `POST /partners/request/{request_id}/accept` - accept a phone bid
+    * **This API endpoint should only be requested if the phone number is intended to be called.**
 
 * Forms
   * `POST /partners/forms/ping` - request a form bid
