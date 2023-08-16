@@ -6,7 +6,7 @@ use Exception;
 
 class PartnersClient
 {
-    const HEADER_PROVIDER = 'SD-API-Provider';
+    const API_KEY_NAME = 'sd_api_key';
 
     /** @var string the API root URL */
     private $host = 'https://api.servicedirect.com/partners/';
@@ -15,7 +15,7 @@ class PartnersClient
     private $timeout = 30;
 
     /** @var integer connect timeout */
-    private $connecttimeout = 30;
+    private $connectTimeout = 30;
 
     /** @var string the SDK user agent */
     private $useragent = 'servicedirect-sdk-php-v0.2';
@@ -58,18 +58,18 @@ class PartnersClient
      * @param string $url - the API route
      * @param array $data - [optional] the data to pass to the server
      * @return array the response from the server
+     * @throws Exception
      */
-    public function post($url, $data = null)
+    public function post($url, $data = [])
     {
         return $this->http_request('POST', $url, $data);
     }
 
     /**
      * Perform a GET request to the API
-     *
      * @param string $url the API route (including query parameters)
-     *
      * @return array the response from the server
+     * @throws Exception
      */
     public function get($url)
     {
@@ -78,23 +78,21 @@ class PartnersClient
 
     /**
      * Perform a PUT request to the API
-     *
      * @param string $url the API route
      * @param array $data the data to pass to the server
-     *
      * @return array the response from the server
+     * @throws Exception
      */
-    public function put($url, $data = null)
+    public function put($url, $data = [])
     {
         return $this->http_request('PUT', $url, $data);
     }
 
     /**
      * Perform a DELETE request to the API
-     *
      * @param string $url the API route (including query parameters)
-     *
      * @return array the response from the server
+     * @throws Exception
      */
     public function delete($url)
     {
@@ -105,37 +103,47 @@ class PartnersClient
      * Inner function that creates the request
      * @param string $method the method of the call
      * @param string $url the API route (including query parameters)
-     * @param array|null $data the data to pass to the server
+     * @param array $data the data to pass to the server
      * @return array|bool|string the response from the server
+     * @throws Exception
      */
-    private function http_request($method, $url, $data = null)
+    private function http_request($method, $url, $data = [])
     {
         # make sure the method is in upper case for comparison
         $method = strtoupper($method);
 
         if (strrpos($url, 'https://') !== 0) {
-            $url = "{$this->host}{$url}";
+            $url = "$this->host$url";
+        }
+
+        if (!is_array($data)) {
+            throw new Exception('The $data argument must be an array');
+        }
+
+        // set the API key in the request data if not present
+        if (!isset($data[self::API_KEY_NAME])) {
+            $data[self::API_KEY_NAME] = $this->key;
         }
 
         $ch = curl_init();
 
         $headers = [];
-        if (!empty($data) && $this->methodWithData($method)) {
+        if ($this->methodWithData($method)) {
             $data = json_encode($data);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
             $headers[] = 'Content-Type: application/json';
             $headers[] = 'Content-Length: ' . strlen($data);
         }
-
-        $headers[] = self::HEADER_PROVIDER . ': ' . $this->key;
+        // else, need to append the key to the URL.
+        // but we currently only have POST endpoints, which satisfy the "if" check
 
         curl_setopt_array(
             $ch,
             [
                 CURLOPT_HTTPHEADER => $headers,
                 CURLOPT_USERAGENT => $this->useragent,
-                CURLOPT_CONNECTTIMEOUT => $this->connecttimeout,
+                CURLOPT_CONNECTTIMEOUT => $this->connectTimeout,
                 CURLOPT_TIMEOUT => $this->timeout,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_HEADER => false,
@@ -178,8 +186,8 @@ class PartnersClient
     /**
      * used by cURL
      * retrieve the returned headers;
-     * @param resource $ch
-     * @param string $header
+     * @param resource $ch passed by the CURLOPT_HEADERFUNCTION function but no used in our case
+     * @param string $header the full (key and value) header value; e.g. "Content-Type: application/json"
      * @return int
      */
     private function _getHeader($ch, $header)
