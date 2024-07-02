@@ -19,7 +19,7 @@ $client = new PartnersClient($key);
 // optional fields are indicated by /*?*/
 $requestData = [
     /*?*/'test_mode' => true,
-    'zip_code' => '11111',
+    'zip_code' => '78701',
     'service_category' => ServiceCategories::AirConditioning,
     /*?*/'source' => '{internal_identifier}',
 ];
