@@ -21,8 +21,10 @@ $requestData = [
     /*?*/'test_mode' => true,
     'zip_code' => '78701',
     'service_category' => ServiceCategories::AirConditioning,
-    /*?*/'source' => '{internal_identifier}',
+    /*?*/'source' => '{SOURCE_AKA_SUB_ID}',
+    /*?*/'tracking_id' => '{INTERNAL_TRACKING_ID}',
 ];
+
 $response = $client->post('request', $requestData);
 
 echo "Status code: $client->last_http_code\n";
@@ -36,6 +38,8 @@ Array(
         [request_id] => 1
         [bid] => 30
         [min_duration] => 60
+        [tracking_id] => "<provided tracking id>" // present only when provided in the request
+        [test_mode] => true // present only in test mode
     )
 )
 */
