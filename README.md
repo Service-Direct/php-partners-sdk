@@ -27,6 +27,7 @@ The SDK integrates with the following API endpoints:
   * `POST /partners/request` - request a phone bid
   * `POST /partners/request/{request_id}/accept` - accept a phone bid
     * **This API endpoint should only be requested if the phone number is intended to be called.**
+  * `POST /partners/request/{request_id}/sold_price` - report the sold price a different buyer (other than Service Direct) paid
 
 * Forms
   * `POST /partners/forms/ping` - request a form bid
@@ -44,7 +45,7 @@ As well as the following dynamically changing open endpoints to get Service Dire
   * Where **{service_category_id}** is replaced with an id from the mapping endpoints
 
 ## Examples
-The SDK includes 5 example files to help facilitate your integration.
+The SDK includes 6 example files to help facilitate your integration.
 In the example file, replace the placeholder value with your private Key to start testing.
 ```php
 use ServiceDirect\Partners\PartnersClient;
@@ -70,22 +71,27 @@ to route the caller to the winning client by sending a request to `POST /partner
 
 See [2] `examples/request-accept.php`
 
+If, however, a different buy (other than Service Direct) won your lead, you can notify Service Direct of the sold price
+by sending a request to `POST /partners/request/{request_id}/sold_price`.
+
+See [3] `examples/request-sold-price.php`
+
 ## Forms
 Using this API, a Publisher Partner who generates form leads and wants to sell those leads to Service Direct can
 request a bid from Service Direct's clients by submitting a request with a service category, zip code, and a
 TCPA consent to `POST /partners/forms/ping`.
 
-See [3] `examples/form-ping.php`
+See [4] `examples/form-ping.php`
 
 Then, if our client's bid is satisfactory, the Partner can accept the bid and receive a confirmation message by
 sending a request to `POST /partners/forms/{lead_token}/post`.
 
-See [4] `examples/form-post.php`
+See [5] `examples/form-post.php`
 
 If our client's bid is unsatisfactory, the Partner can report the winning bid and receive a confirmation message by
 sending a request to `POST /partners/forms/{lead_token}/post`.
 
-See [5] `examples/form-sold-price.php`
+See [6] `examples/form-sold-price.php`
 
 ## General
 Publisher Partners can use our supporting endpoints to determine their best integration options:
