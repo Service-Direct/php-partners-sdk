@@ -1,4 +1,4 @@
-# Marketplace Partners API Instructions + PHP Examples
+# Earn API Instructions + PHP Examples
 
 ## Overview:
 The purpose of this SDK it to ease the integration process for our affiliates who use PHP.
