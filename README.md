@@ -29,7 +29,7 @@ The SDK integrates with the following API endpoints:
     * **This API endpoint should only be requested if the phone number is intended to be called.**
   * `POST /partners/request/{request_id}/sold_price` - report the sold price a different buyer (other than Service Direct) paid
 
-* Forms
+* Forms (Not supported after January 2025)
   * `POST /partners/forms/ping` - request a form bid
   * `POST /partners/forms/{lead_token}/post` - accept a form bid
   * `POST /partners/forms/{lead_token}/sold_price` - report a lost bid winning price
@@ -76,7 +76,7 @@ by sending a request to `POST /partners/request/{request_id}/sold_price`.
 
 See [3] `examples/request-sold-price.php`
 
-## Forms
+## Forms (Not Supported after January 2025)
 Using this API, a Publisher Partner who generates form leads and wants to sell those leads to Service Direct can
 request a bid from Service Direct's clients by submitting a request with a service category, zip code, and a
 TCPA consent to `POST /partners/forms/ping`.
