@@ -5,7 +5,7 @@ The purpose of this SDK it to ease the integration process for our affiliates wh
 
 See full documentation for our APIs here:
 * [Marketplace Phones API](https://docs.google.com/document/d/e/2PACX-1vSqTEv-aynxXNOSqj9xD4nwMrC9gfl-kE9J0UFWFNtrJcXIE7NE0l3tUH4Zro3cTHwXHmoe_JaHCmTW/pub)
-* [Marketplace Forms API](https://docs.google.com/document/u/1/d/e/2PACX-1vQ35nE839QVD2EkkVnhRNhu_hf8NXRJL3gUzn4jdMoAclIX-faGk-nGHJ0_Zchdd0lUMwdJyXk3RLD0/pub)
+* [Marketplace Forms API (Not supported after January 2025)](https://docs.google.com/document/u/1/d/e/2PACX-1vQ35nE839QVD2EkkVnhRNhu_hf8NXRJL3gUzn4jdMoAclIX-faGk-nGHJ0_Zchdd0lUMwdJyXk3RLD0/pub)
 
 ### Install this library using Composer:
 `composer require service-direct/php-partners-sdk`
@@ -76,7 +76,7 @@ by sending a request to `POST /partners/request/{request_id}/sold_price`.
 
 See [3] `examples/request-sold-price.php`
 
-## Forms (Not Supported after January 2025)
+## Forms (Not supported after January 2025)
 Using this API, a Publisher Partner who generates form leads and wants to sell those leads to Service Direct can
 request a bid from Service Direct's clients by submitting a request with a service category, zip code, and a
 TCPA consent to `POST /partners/forms/ping`.
