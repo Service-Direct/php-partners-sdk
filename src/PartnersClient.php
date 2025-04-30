@@ -198,7 +198,7 @@ class PartnersClient
      * @param string $header the full (key and value) header value; e.g. "Content-Type: application/json"
      * @return int
      */
-    private function _getHeader($ch, $header)
+    public function _getHeader($ch, $header)
     {
         $i = strpos($header, ':');
         if (!empty($i)) {
