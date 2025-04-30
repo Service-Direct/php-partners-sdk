@@ -35,6 +35,9 @@ class PartnersClient
     /** @var integer last call cURL error number */
     public $last_error_number;
 
+    /** @var boolean when set to true, the HTTP method functions will return the resource instead of executing it */
+    public $returnCurlHandle = false;
+
     /**
      * @param string $key - the token key
      * @param mixed $placeholder - [deprecated] placeholder for legacy support
@@ -104,12 +107,12 @@ class PartnersClient
      * @param string $method the method of the call
      * @param string $url the API route (including query parameters)
      * @param array $data the data to pass to the server
-     * @return array|bool|string the response from the server
+     * @return array|bool|string|resource the response from the server
      * @throws Exception
      */
     private function http_request($method, $url, $data = [])
     {
-        # make sure the method is in upper case for comparison
+        // make sure the method is in upper case for comparison
         $method = strtoupper($method);
 
         if (strrpos($url, 'https://') !== 0) {
@@ -166,9 +169,14 @@ class PartnersClient
                 break;
         }
 
+        // when set to true, the HTTP method functions will return the resource instead of executing it
+        if ($this->returnCurlHandle) {
+            return $ch;
+        }
+
         $response = curl_exec($ch);
 
-        # set the last http code; headers are set automatically by cURL
+        // set the last http code; headers are set automatically by cURL
         $this->last_http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
         if ($response === false) {
