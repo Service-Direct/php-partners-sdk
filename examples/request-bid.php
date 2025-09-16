@@ -18,11 +18,14 @@ $client = new PartnersClient($key);
 
 // optional fields are indicated by /*?*/
 $requestData = [
-    /*?*/'test_mode' => true,
+    /*?*/'test_mode' => true, // remove in production
     'zip_code' => '78701',
     'service_category' => ServiceCategories::AirConditioning,
-    /*?*/'source' => '{SOURCE_AKA_SUB_ID}',
-    /*?*/'tracking_id' => '{INTERNAL_TRACKING_ID}',
+//    /*?*/'source' => '{SOURCE_AKA_SUB_ID}',
+//    /*?*/'caller_id' => '{CALLER_ID}',
+//    /*?*/'caller_id_in_post' => false,
+//    /*?*/'tracking_id' => '{INTERNAL_TRACKING_ID}',
+//    /*?*/'suppress_response_codes' => true,
 ];
 
 $response = $client->post('request', $requestData);

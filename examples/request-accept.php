@@ -17,7 +17,7 @@ $client = new PartnersClient($key);
 
 // optional fields are indicated by /*?*/
 $requestData = [
-    /*?*/'test_mode' => true,
+    /*?*/'test_mode' => true, // remove in production
 ];
 
 // the request id received from the /request route (see /examples/request-bid.php)
