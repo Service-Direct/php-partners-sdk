@@ -12,7 +12,7 @@ See full documentation for our APIs here:
 
 ### Response Codes
 The API responds with different HTTP status codes to better rely the result of a call.
-These response codes include 200, 400, 404, etc.
+These response codes include `200`, `400`, `404`, etc.
 If your system is senstive to different response codes, the `suppress_response_codes` variable
 can be added to every response URL (e.g. `/partners/request?suppress_response_codes`) to always
 return a **200** HTTP status code.
